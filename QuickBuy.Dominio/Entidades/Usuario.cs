@@ -15,11 +15,15 @@ namespace QuickBuy.Dominio.Entidades
          * Um usuario pode ter muitos pedidos
          */
         
-        public ICollection<Pedido> Pedidos { get; set; }
+        public virtual ICollection<Pedido> Pedidos { get; set; }
 
         public override void Validate()
         {
-            throw new System.NotImplementedException();
+            if (string.IsNullOrEmpty(Email))
+                AdicionarCritica("Critica - Email não foi informado");
+
+            if (string.IsNullOrEmpty(Senha))
+                AdicionarCritica("Senha não foi informado");
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using QuickBuy.Dominio.ObjetoDeValor;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace QuickBuy.Dominio.Entidades
 {
@@ -9,7 +10,7 @@ namespace QuickBuy.Dominio.Entidades
         public int Id { get; set; }
         public DateTime DataPedido { get; set; }
         public int UsuarioId { get; set; }
-        public DateTime DataPrevisaoEntrega { get; set; }
+        public virtual Usuario Usuario { get; set; }
         public string CEP { get; set; }
         public string Estado { get; set; }
         public string Cidade { get; set; }
@@ -18,23 +19,29 @@ namespace QuickBuy.Dominio.Entidades
 
         public int FormaPagamentoId { get; set; }
 
-        public FormaPagamento FormaPagamento { get; set; }
+        /// <summary>
+        /// quando for entidade de navegação (objeto ou lista) precisar marcar como virtual
+        /// </summary>
+        public virtual FormaPagamento FormaPagamento { get; set; }
 
         /// <summary>
         ///     Pedido deve ter pelo menos um item de pedido
         ///     ou muitos itens de pedidos
         /// </summary>
-        public ICollection<ItemPedido> ItemPedidos { get; set; }
+        public virtual ICollection<ItemPedido> ItensPedidos { get; set; }
 
         public override void Validate()
         {
             LimparMensagensValidacao();
 
-            if (!ItemPedido.any())
+            if (!ItensPedidos.Any())
                 AdicionarCritica("Critica - Pedido não pode ficar sem item de pedido");
 
             if (string.IsNullOrEmpty(CEP))
-                AdicionarCritica("Critica - CEP deve ser preenchido");
+                AdicionarCritica("Critica - CEP deve estar preenchido");
+
+            if (FormaPagamentoId == 0)
+                AdicionarCritica("Critica - Não foi informado a forma de pagamento");
         }
     }
 }
