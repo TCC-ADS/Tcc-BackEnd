@@ -15,7 +15,6 @@ namespace QuickBuy.Web
 {
     public class Startup 
     {
-
         public IConfiguration Configuration { get; }
         public Startup(IConfiguration configuration)
         {
@@ -29,7 +28,13 @@ namespace QuickBuy.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                                    {
+                                        builder.AllowAnyOrigin();
+                                    });
+            });
 
             services.AddSwaggerGen(options =>
             {
@@ -65,6 +70,8 @@ namespace QuickBuy.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();            
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>

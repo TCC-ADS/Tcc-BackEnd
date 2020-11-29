@@ -31,7 +31,7 @@ namespace QuickBuy.Web.Controllers
         //{
         //    try
         //    {
-        //        int IdProduto = Convert.ToInt32(_produtoRepositorio.ObterPorId(id));
+        //        var IdProduto = _produtoRepositorio.ObterPorId(id);
         //        return Ok(IdProduto);
         //    }
         //    catch (Exception ex)
