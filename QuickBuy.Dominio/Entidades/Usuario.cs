@@ -10,11 +10,12 @@ namespace QuickBuy.Dominio.Entidades
         public string Senha { get; set; }
         public string Nome { get; set; }
         public string Sobrenome { get; set; }
+        public bool IsLogin { get; set; }
 
         /*
          * Um usuario pode ter muitos pedidos
          */
-        
+
         public virtual ICollection<Pedido> Pedidos { get; set; }
 
         public override void Validate()

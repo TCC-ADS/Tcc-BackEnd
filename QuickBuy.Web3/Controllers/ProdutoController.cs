@@ -15,7 +15,7 @@ namespace QuickBuy.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult ObterProdutos()
         {
             try
             {
@@ -26,14 +26,41 @@ namespace QuickBuy.Web.Controllers
             }
         }
 
+        //[HttpGet]
+        //public IActionResult Get(Produto produto)
+        //{
+        //    try
+        //    {
+        //        _produtoRepositorio.ObterPorId(produto.Id);
+        //        return Get(produto);
+        //    }catch(Exception ex)
+        //    {
+        //        return BadRequest(ex.ToString());
+        //    }
+        //}
+
         [HttpPost]
-        public IActionResult Post([FromBody] Produto produto)
+        public IActionResult AdicionarProduto([FromBody] Produto produto)
         {
             try
             {
                 _produtoRepositorio.Adicionar(produto);
                 return Created("api/produto", produto);
             }catch(Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpPut]
+        public IActionResult AtualizarProduto([FromBody] Produto produto)
+        {
+            try
+            {
+                _produtoRepositorio.Atualizar(produto);
+                return Created("api/produto", produto);
+            }
+            catch (Exception ex)
             {
                 return BadRequest(ex.ToString());
             }

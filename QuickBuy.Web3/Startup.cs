@@ -70,7 +70,7 @@ namespace QuickBuy.Web
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint( $"/swagger/v1/swagger.json", "v1");
-                c.DocExpansion(DocExpansion.Full);
+                c.DocExpansion(DocExpansion.List);
             });
 
             app.UseEndpoints(endpoints =>
