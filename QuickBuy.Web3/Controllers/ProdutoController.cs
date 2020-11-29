@@ -27,13 +27,14 @@ namespace QuickBuy.Web.Controllers
         }
 
         //[HttpGet]
-        //public IActionResult Get(Produto produto)
+        //public IActionResult Get(int id)
         //{
         //    try
         //    {
-        //        _produtoRepositorio.ObterPorId(produto.Id);
-        //        return Get(produto);
-        //    }catch(Exception ex)
+        //        int IdProduto = Convert.ToInt32(_produtoRepositorio.ObterPorId(id));
+        //        return Ok(IdProduto);
+        //    }
+        //    catch (Exception ex)
         //    {
         //        return BadRequest(ex.ToString());
         //    }
