@@ -9,6 +9,8 @@ using QuickBuy.Dominio.Contratos;
 using QuickBuy.Repositorio.Contexto;
 using QuickBuy.Repositorio.Repositorios;
 using Swashbuckle.AspNetCore.SwaggerUI;
+using System;
+using System.IO;
 using System.Reflection;
 
 namespace QuickBuy.Web
@@ -36,9 +38,17 @@ namespace QuickBuy.Web
                                     });
             });
 
-            services.AddSwaggerGen(options =>
+            services.AddSwaggerGen(x =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Tcc", Version = "v1" });
+                x.SwaggerDoc("v1", new OpenApiInfo 
+                {
+                    Title = "Tcc", 
+                    Version = "v1" 
+                });
+             // Set the comments path for the Swagger JSON and UI.
+             var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+             var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+             x.IncludeXmlComments(xmlPath);
             });
 
 
@@ -50,6 +60,8 @@ namespace QuickBuy.Web
                                                                             m => m.MigrationsAssembly(migrationsAssembly)));
 
             services.AddScoped<IProdutoRepositorio, ProdutoRepositorio>();
+            services.AddScoped<IPedidoRepositorio, PedidoRepositorio>();
+            services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
             services.AddControllers();
 
